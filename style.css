@@ -1,0 +1,62 @@
+.ticket-header-cont{
+    height: 6rem;
+    background-color: #2a2b2a;
+    padding: 1rem;
+    display: flex;
+}
+
+.ticket-header-cont > *{
+    align-self: center;
+    border-radius: 0.2rem;
+    height: 80%;
+    background-color: #585c58;
+}
+
+.ticket-priority-color-cont{
+    width: 25rem;
+    margin-left: 2rem;
+    display: flex;
+    justify-content: space-around;
+}
+
+.ticket-priority{
+    width: 16%;
+    height: 80%;
+    align-self: center;
+    background-color: blueviolet;
+    border-radius: 0.2rem;
+}
+
+.color-blueviolet{
+    background-color: blueviolet;
+}
+
+.color-aqua{
+    background-color:aqua;
+}
+
+.color-brown{
+    background-color: brown;
+}
+
+.color-chartreuse{
+    background-color: chartreuse;
+}
+
+.color-salmon{
+    background-color: salmon;
+}
+.ticket-action-cont{
+    width: 10rem;
+    margin-left: 5rem;
+}
+
+.border{
+    border: 0.15rem solid white;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
