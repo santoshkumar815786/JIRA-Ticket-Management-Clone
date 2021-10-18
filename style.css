@@ -74,6 +74,11 @@
     color: white;
 }
 
+.ticket-action-cont > *:hover{
+    background-color: black;
+}
+
+
 .border{
     border: 0.15rem solid white;
 }
@@ -83,3 +88,4 @@
     padding: 0;
     box-sizing: border-box;
 }
+
