@@ -121,6 +121,41 @@
     height: 14%;
     border-radius: 0.2rem;
 }
+
+.main-cont{
+    padding: 1.5rem;
+    height: 100vh;
+    background-color: #dee2de;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+.display-ticket-cont{
+    width: 16rem;
+    height: 13rem;
+    border-radius: 0.2rem;
+}
+.display-ticket-color-cont{
+    width: 100%;
+    height: 1.2rem;
+    background-color: blueviolet;
+}
+.display-ticket-id-cont{
+    width: 100%;
+    height: 2.2rem;
+    background-color: #28292a;
+    align-items: center;
+    display: flex;
+    color: white;
+    justify-content: center;
+}
+.display-ticket-description-cont{
+    width: 100%;
+    height: calc((100% - 1.2rem - 2.2rem));
+    background-color: rgb(179, 182, 182);
+    padding: 0.7rem;
+}
+
 .border{
     border: 0.15rem solid white;
 }
