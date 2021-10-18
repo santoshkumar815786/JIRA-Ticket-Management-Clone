@@ -49,6 +49,29 @@
 .ticket-action-cont{
     width: 10rem;
     margin-left: 5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.ticket-action-create{
+    width: 40%;
+    height: 80%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.2rem;
+    display: flex;
+    font-size: 2rem;
+    color: white;
+}
+.ticket-action-delete{
+    width: 40%;
+    height: 80%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.2rem;
+    display: flex;
+    font-size: 2rem;
+    color: white;
 }
 
 .border{
