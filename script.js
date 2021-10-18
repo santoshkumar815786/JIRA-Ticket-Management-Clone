@@ -9,9 +9,11 @@ btnCreateTicket.addEventListener("click", (e)=>{
     if(isTicketModalOpen)
     {
         ticketModalCont.style.display = "flex";
+        btnCreateTicket.classList.add("border");
     }
     else
     {
         ticketModalCont.style.display = "none";
+        btnCreateTicket.classList.remove("border");
     }
 });
