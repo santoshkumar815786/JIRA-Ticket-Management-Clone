@@ -31,7 +31,11 @@ createTicketPriorityAll.forEach((ticketPirorityColor, idx)=>{
 
 textareaTicketDescription.addEventListener("keydown", (e) => {
     if (e.key === "Shift") {
-        createNewTicket(currentSelectedPriorityColor, "#SAN5526K", "Sample ticket generation");
+        if(textareaTicketDescription.value ==="")
+        {
+            return 
+        }
+        createNewTicket(currentSelectedPriorityColor, "#SAN5526K", textareaTicketDescription.value);
     }
 });
 
