@@ -6,17 +6,32 @@ let displayTicketsMainCont = document.querySelector(".main-cont");
 
 let textareaTicketDescription = document.querySelector(".textarea-ticket-description");
 
+let createTicketPriorityAll = document.querySelectorAll(".create-ticket-priority");
+
 let isTicketModalOpen = false;
+
+let priorityColors = ["color-blueviolet","color-aqua","color-brown","color-chartreuse","color-salmon"]; // array of all priority colors
+let currentSelectedPriorityColor = priorityColors[0];   // This will store current selected priority color, right now initialized with default priority color as "color-blueviolet"
 
 btnCreateTicket.addEventListener("click", (e) => {
     isTicketModalOpen = !isTicketModalOpen;
     ticketModalShowAndHideController(isTicketModalOpen);
 });
 
+createTicketPriorityAll.forEach((ticketPirorityColor, idx)=>{
+    ticketPirorityColor.addEventListener("click",(e)=>{
+       createTicketPriorityAll.forEach((xTicketPriorityColor,idx)=>{
+            xTicketPriorityColor.classList.remove("border");
+       });
+       ticketPirorityColor.classList.add("border");
+       currentSelectedPriorityColor = ticketPirorityColor.classList[0];
+    });
+});
+
 
 textareaTicketDescription.addEventListener("keydown", (e) => {
     if (e.key === "Shift") {
-        createNewTicket("color-chartreuse", "#SAN5526K", "Sample ticket generation");
+        createNewTicket(currentSelectedPriorityColor, "#SAN5526K", "Sample ticket generation");
     }
 });
 
