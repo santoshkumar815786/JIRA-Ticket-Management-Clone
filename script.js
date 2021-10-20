@@ -17,6 +17,8 @@ let isTicketModalOpen = false;
 let priorityColors = ["color-blueviolet", "color-aqua", "color-brown", "color-chartreuse", "color-salmon"]; // array of all priority colors
 let currentSelectedPriorityColor = priorityColors[0];   // This will store current selected priority color, right now initialized with default priority color as "color-blueviolet"
 
+let allTicketsArray = []; // This array will store all the tickets data that are created
+
 btnCreateTicket.addEventListener("click", (e) => {
     isTicketModalOpen = !isTicketModalOpen;
     ticketModalShowAndHideController(isTicketModalOpen);
@@ -80,6 +82,8 @@ function createNewTicket(ticketColor, ticketId, ticketTaskDescription) {
     <i class="fas fa-lock"></i>
     </div>`;
     displayTicketsMainCont.appendChild(newTicket);
+
+    allTicketsArray.push({ticketColor, ticketId, ticketTaskDescription});   // Adding each newly created data inside allTicketsArray
 
     handleTicketLock(newTicket);    // Setting ticket lock functionaly for each newly created ticket
     handleDisplayedTicketColor(newTicket);
