@@ -85,6 +85,8 @@ function handleTicketLock(ticket)
     let lockIcon = "fa-lock"    // Icon for lock ticket
     let unlockIcon = "fa-lock-open" // Icon for unlock ticket
 
+    let ticketTaskTextarea = ticket.querySelector(".display-ticket-description-cont");
+
     // adding click event listener on the lock
     ticketLock.addEventListener("click",(e)=>{
 
@@ -92,10 +94,12 @@ function handleTicketLock(ticket)
         if(ticketLock.classList.contains(lockIcon)){
             ticketLock.classList.remove(lockIcon);
             ticketLock.classList.add(unlockIcon);
+            ticketTaskTextarea.setAttribute("contenteditable","true");  // Making the ticket task decription area editable
         }
         else{
             ticketLock.classList.remove(unlockIcon);
             ticketLock.classList.add(lockIcon);
+            ticketTaskTextarea.setAttribute("contenteditable","false"); // Making the ticket task decription area uneditable
         }
     });
 }
