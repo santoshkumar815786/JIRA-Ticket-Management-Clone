@@ -8,6 +8,8 @@ let textareaTicketDescription = document.querySelector(".textarea-ticket-descrip
 
 let createTicketPriorityAll = document.querySelectorAll(".create-ticket-priority");
 
+let ticketPriorityAll = document.querySelectorAll(".ticket-priority");
+
 let ticketLockCont = "";
 
 let isTicketModalOpen = false;
@@ -36,6 +38,17 @@ createTicketPriorityAll.forEach((ticketPirorityColor, idx) => {
 
         // Changing the value to new ticket priority color 
         currentSelectedPriorityColor = ticketPirorityColor.classList[0];
+    });
+});
+
+// Handling ticket sorting based on ticket priority color
+ticketPriorityAll.forEach((tempTicketPriorityColor, idx)=>{
+    tempTicketPriorityColor.addEventListener("click",(e)=>{
+        ticketPriorityAll.forEach((xtempTicketPriorityColor, idx)=>{
+            xtempTicketPriorityColor.classList.remove("border");    // Removing border class from the class list of all the ticket priority colors
+        });
+        tempTicketPriorityColor.classList.add("border");   // Adding border class in the class list of only ticket priority color i.e clicked
+        // console.log(`Clicked on color : ${tempTicketPriorityColor.classList[0]}`);
     });
 });
 
