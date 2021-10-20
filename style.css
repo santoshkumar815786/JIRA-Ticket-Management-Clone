@@ -134,6 +134,8 @@
     width: 16rem;
     height: 13rem;
     border-radius: 0.2rem;
+    display: flex;
+    flex-direction: column;
 }
 .display-ticket-color-cont{
     width: 100%;
@@ -150,9 +152,24 @@
 }
 .display-ticket-description-cont{
     width: 100%;
-    height: calc((100% - 1.2rem - 2.2rem));
+    height: calc((100% - 1.2rem - 2.2rem - 2rem));
     background-color: rgb(179, 182, 182);
     padding: 0.7rem;
+}
+.display-ticket-lock{
+    width: 100%;
+    height: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: rgb(179, 182, 182);
+}
+.display-ticket-lock > *{
+    font-size: 1.5rem;
+    color: #3a3b3a;
+    margin-bottom: 0.6rem;
+    margin-right: 0.6rem;
+
 }
 
 .border{

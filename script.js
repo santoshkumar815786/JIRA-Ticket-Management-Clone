@@ -8,9 +8,11 @@ let textareaTicketDescription = document.querySelector(".textarea-ticket-descrip
 
 let createTicketPriorityAll = document.querySelectorAll(".create-ticket-priority");
 
+let ticketLockCont = "";
+
 let isTicketModalOpen = false;
 
-let priorityColors = ["color-blueviolet","color-aqua","color-brown","color-chartreuse","color-salmon"]; // array of all priority colors
+let priorityColors = ["color-blueviolet", "color-aqua", "color-brown", "color-chartreuse", "color-salmon"]; // array of all priority colors
 let currentSelectedPriorityColor = priorityColors[0];   // This will store current selected priority color, right now initialized with default priority color as "color-blueviolet"
 
 btnCreateTicket.addEventListener("click", (e) => {
@@ -19,32 +21,31 @@ btnCreateTicket.addEventListener("click", (e) => {
 });
 
 // This will set border on current selected priority color and also set the currentSelectedPriorityColor with selected priority color value
-createTicketPriorityAll.forEach((ticketPirorityColor, idx)=>{
+createTicketPriorityAll.forEach((ticketPirorityColor, idx) => {
 
     // Setting click event listener on each priority color
-    ticketPirorityColor.addEventListener("click",(e)=>{
-        
-       // Removing .border form the class list of all the Priority colors 
-       createTicketPriorityAll.forEach((xTicketPriorityColor,idx)=>{
+    ticketPirorityColor.addEventListener("click", (e) => {
+
+        // Removing .border form the class list of all the Priority colors 
+        createTicketPriorityAll.forEach((xTicketPriorityColor, idx) => {
             xTicketPriorityColor.classList.remove("border");
-       });
+        });
 
-       // Adding .border in the class list of current selected Priority color 
-       ticketPirorityColor.classList.add("border");
+        // Adding .border in the class list of current selected Priority color 
+        ticketPirorityColor.classList.add("border");
 
-       // Changing the value to new ticket priority color 
-       currentSelectedPriorityColor = ticketPirorityColor.classList[0];
+        // Changing the value to new ticket priority color 
+        currentSelectedPriorityColor = ticketPirorityColor.classList[0];
     });
 });
 
 
 textareaTicketDescription.addEventListener("keydown", (e) => {
     if (e.key === "Shift") {
-        if(textareaTicketDescription.value ==="")
-        {
-            return 
+        if (textareaTicketDescription.value === "") {
+            return
         }
-        let uniqueTicketId = "#"+shortid(); 
+        let uniqueTicketId = "#" + shortid();
         /*
             shortid() will generate unique ticket id (shortid() is comming from the script )
             "https://unpkg.com/shortid-dist@1.0.5/dist/shortid-2.2.13.min.js" (This script is inside index.html)
@@ -61,6 +62,9 @@ function createNewTicket(ticketColor, ticketId, ticketTaskDescription) {
     <div class="display-ticket-id-cont">${ticketId}</div>
     <div class="display-ticket-description-cont">
         ${ticketTaskDescription}
+    </div>
+    <div class="display-ticket-lock">
+    <i class="fas fa-lock"></i>
     </div>`;
     displayTicketsMainCont.appendChild(newTicket);
 
@@ -68,8 +72,7 @@ function createNewTicket(ticketColor, ticketId, ticketTaskDescription) {
     ticketModalShowAndHideController(isTicketModalOpen);
 }
 
-function ticketModalShowAndHideController(shouldShow) 
-{
+function ticketModalShowAndHideController(shouldShow) {
     // This function will simply controll the hiding and showing of .ticket-modal-cont based on the value of shouldShow
     if (shouldShow) {
         ticketModalCont.style.display = "flex";
