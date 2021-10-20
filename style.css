@@ -156,7 +156,7 @@
     background-color: rgb(179, 182, 182);
     padding: 0.7rem;
 }
-.display-ticket-lock{
+.display-ticket-lock-cont{
     width: 100%;
     height: 2rem;
     display: flex;
@@ -164,7 +164,7 @@
     align-items: center;
     background-color: rgb(179, 182, 182);
 }
-.display-ticket-lock > *{
+.display-ticket-lock-cont > *{
     font-size: 1.5rem;
     color: #3a3b3a;
     margin-bottom: 0.6rem;

@@ -63,14 +63,43 @@ function createNewTicket(ticketColor, ticketId, ticketTaskDescription) {
     <div class="display-ticket-description-cont">
         ${ticketTaskDescription}
     </div>
-    <div class="display-ticket-lock">
+    <div class="display-ticket-lock-cont">
     <i class="fas fa-lock"></i>
     </div>`;
     displayTicketsMainCont.appendChild(newTicket);
 
+    handleTicketLock(newTicket);    // Setting ticket lock functionaly for each newly created ticket
+
     isTicketModalOpen = false;  // Setting false as closing the create-ticket-modal
     ticketModalShowAndHideController(isTicketModalOpen);
+
+
 }
+
+
+function handleTicketLock(ticket)
+{
+    // This function will add the lock functionality on each newly created ticket
+    let displayTicketLockCont = ticket.querySelector(".display-ticket-lock-cont");
+    let ticketLock = displayTicketLockCont.children[0]; // Getting first children as it only has one children i.e lock
+    let lockIcon = "fa-lock"    // Icon for lock ticket
+    let unlockIcon = "fa-lock-open" // Icon for unlock ticket
+
+    // adding click event listener on the lock
+    ticketLock.addEventListener("click",(e)=>{
+
+        // Checking if lockIcon class is in the class list of ticket lock or not
+        if(ticketLock.classList.contains(lockIcon)){
+            ticketLock.classList.remove(lockIcon);
+            ticketLock.classList.add(unlockIcon);
+        }
+        else{
+            ticketLock.classList.remove(unlockIcon);
+            ticketLock.classList.add(lockIcon);
+        }
+    });
+}
+
 
 function ticketModalShowAndHideController(shouldShow) {
     // This function will simply controll the hiding and showing of .ticket-modal-cont based on the value of shouldShow
