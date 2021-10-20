@@ -69,6 +69,7 @@ function createNewTicket(ticketColor, ticketId, ticketTaskDescription) {
     displayTicketsMainCont.appendChild(newTicket);
 
     handleTicketLock(newTicket);    // Setting ticket lock functionaly for each newly created ticket
+    handleDisplayedTicketColor(newTicket);
 
     isTicketModalOpen = false;  // Setting false as closing the create-ticket-modal
     ticketModalShowAndHideController(isTicketModalOpen);
@@ -77,8 +78,7 @@ function createNewTicket(ticketColor, ticketId, ticketTaskDescription) {
 }
 
 
-function handleTicketLock(ticket)
-{
+function handleTicketLock(ticket) {
     // This function will add the lock functionality on each newly created ticket
     let displayTicketLockCont = ticket.querySelector(".display-ticket-lock-cont");
     let ticketLock = displayTicketLockCont.children[0]; // Getting first children as it only has one children i.e lock
@@ -88,22 +88,41 @@ function handleTicketLock(ticket)
     let ticketTaskTextarea = ticket.querySelector(".display-ticket-description-cont");
 
     // adding click event listener on the lock
-    ticketLock.addEventListener("click",(e)=>{
+    ticketLock.addEventListener("click", (e) => {
 
         // Checking if lockIcon class is in the class list of ticket lock or not
-        if(ticketLock.classList.contains(lockIcon)){
+        if (ticketLock.classList.contains(lockIcon)) {
             ticketLock.classList.remove(lockIcon);
             ticketLock.classList.add(unlockIcon);
-            ticketTaskTextarea.setAttribute("contenteditable","true");  // Making the ticket task decription area editable
+            ticketTaskTextarea.setAttribute("contenteditable", "true");  // Making the ticket task decription area editable
         }
-        else{
+        else {
             ticketLock.classList.remove(unlockIcon);
             ticketLock.classList.add(lockIcon);
-            ticketTaskTextarea.setAttribute("contenteditable","false"); // Making the ticket task decription area uneditable
+            ticketTaskTextarea.setAttribute("contenteditable", "false"); // Making the ticket task decription area uneditable
         }
     });
 }
 
+
+function handleDisplayedTicketColor(ticket) {
+    let displayTicketColorCont = ticket.querySelector(".display-ticket-color-cont");
+    let thisTicketColor = displayTicketColorCont.classList[0];  // Getting color class attribute i.e at index 0
+    let indexOfColor = priorityColors.indexOf(thisTicketColor); // Getting index of current selected priority color of the ticket displayed
+
+    // Adding click listener on ticket color container
+    displayTicketColorCont.addEventListener("click", (e) => {
+        thisTicketColor = priorityColors[indexOfColor];
+        if (indexOfColor < 4) {
+            indexOfColor++;
+        }
+        else{
+            indexOfColor=0;
+        }
+        // Replacing curret ticket color class with new ticket color class
+        displayTicketColorCont.classList.replace(thisTicketColor, priorityColors[indexOfColor]);
+    });
+}
 
 function ticketModalShowAndHideController(shouldShow) {
     // This function will simply controll the hiding and showing of .ticket-modal-cont based on the value of shouldShow
