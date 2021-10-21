@@ -22,10 +22,9 @@ let allTicketsArray = []; // This array will store all the tickets data that are
 
 btnCreateTicket.addEventListener("click", (e) => {
     isTicketModalOpen = !isTicketModalOpen;
-    if(isDeleteActive)
-    {
+    if (isDeleteActive) {
         isDeleteActive = false; // Setting false as delete is inactive now
-        btnDeleteTicket.classList.remove("border"); 
+        btnDeleteTicket.classList.remove("border");
         btnCreateTicket.classList.add("border");
     }
     ticketModalShowAndHideController(isTicketModalOpen);
@@ -34,22 +33,19 @@ btnCreateTicket.addEventListener("click", (e) => {
 let isDeleteActive = false;
 
 // Handling ticket delete functionality
-btnDeleteTicket.addEventListener("click",(e)=>{
+btnDeleteTicket.addEventListener("click", (e) => {
     isDeleteActive = !isDeleteActive;
-    if(isTicketModalOpen)
-    {
+    if (isTicketModalOpen) {
         // Hiding ticket modal if open
         isTicketModalOpen = false;
         ticketModalShowAndHideController(false);
-    } 
-    if(isDeleteActive)
-    {
+    }
+    if (isDeleteActive) {
         // Activating ticket deleted functionality
         btnCreateTicket.classList.remove("border");
         btnDeleteTicket.classList.add("border");
     }
-    else
-    {
+    else {
         // Deactivating ticket deleted functionality
         btnDeleteTicket.classList.remove("border");
     }
@@ -88,10 +84,10 @@ ticketPriorityAll.forEach((tempTicketPriorityColor, idx) => {
     // Displaying all tickets when double clicks on any priority color in the header area
     tempTicketPriorityColor.addEventListener("dblclick", (e) => {
         sortTicketsByColor(tempTicketPriorityColor.classList[0], true);
-        
+
         // Adding .border class to all the ticket priority colors 
         ticketPriorityAll.forEach((xTempTicketPriorityColor, idx) => {
-            xTempTicketPriorityColor.classList.add('border');   
+            xTempTicketPriorityColor.classList.add('border');
         });
     });
 });
@@ -130,19 +126,32 @@ function createNewTicket(ticketColor, ticketTaskDescription, ticketId) {
     <i class="fas fa-lock"></i>
     </div>`;
     displayTicketsMainCont.appendChild(newTicket);
-
+    let ticketData = { ticketColor, ticketId: id, ticketTaskDescription }; 
     if (!ticketId) {
-        allTicketsArray.push({ ticketColor, ticketId: id, ticketTaskDescription });   // Adding each newly created data inside allTicketsArray
+        allTicketsArray.push(ticketData);   // Adding each newly created data inside allTicketsArray
     }
 
     handleTicketLock(newTicket);    // Setting ticket lock functionaly for each newly created ticket
     handleDisplayedTicketColor(newTicket);
+    handleTicketDelete(newTicket, ticketData);
 
     isTicketModalOpen = false;  // Setting false as closing the create-ticket-modal
     ticketModalShowAndHideController(isTicketModalOpen);
 
 }
 
+// This function will delete ticket from the display as well as from the allTicketArray
+function handleTicketDelete(ticket, ticketData) {
+
+    // Setting click listener on ticket
+    ticket.addEventListener("click", (e) => {
+        if (isDeleteActive) {
+            // Deleting tickets only if delete button is active, other wise not deleting
+            ticket.remove();    // removing the ticket div class from the main container
+            allTicketsArray.splice(allTicketsArray.indexOf(ticketData));    // deleting the ticket data from the array allTicketArray
+        }
+    });
+}
 
 function handleTicketLock(ticket) {
     // This function will add the lock functionality on each newly created ticket
@@ -223,7 +232,7 @@ function sortTicketsByColor(ticketColor, shouldDisplayAllTickets) {
             return ticketColor === allTicketsArray[idx].ticketColor;
         });
     }
-    else{
+    else {
         // To display all the tickets when double click on any priority color
         sortedTickets = allTicketsArray;
     }
