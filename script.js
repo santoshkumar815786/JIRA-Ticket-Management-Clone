@@ -51,7 +51,12 @@ ticketPriorityAll.forEach((tempTicketPriorityColor, idx) => {
         });
         tempTicketPriorityColor.classList.add("border");   // Adding border class in the class list of only ticket priority color i.e clicked
         console.log(`Clicked on color : ${tempTicketPriorityColor.classList[0]}`);
-        sortTicketsByColor(tempTicketPriorityColor.classList[0]);
+        sortTicketsByColor(tempTicketPriorityColor.classList[0], false);
+    });
+
+    // Displaying all tickets when double clicks on any priority color in the header area
+    tempTicketPriorityColor.addEventListener("dblclick", (e) => {
+        sortTicketsByColor(tempTicketPriorityColor.classList[0], true);
     });
 });
 
@@ -75,7 +80,7 @@ function createNewTicket(ticketColor, ticketTaskDescription, ticketId) {
   */
 
     let id = ticketId || uniqueTicketId;    // if ticketId is undefined then uniqueTicketId will be assigned to the variable id
-                                            // if ticketId is not undefined i.e it has some value then ticketId will be assigned to the variable id
+    // if ticketId is not undefined i.e it has some value then ticketId will be assigned to the variable id
 
 
     let newTicket = document.createElement("div");
@@ -163,7 +168,7 @@ function ticketModalShowAndHideController(shouldShow) {
 }
 
 // This function will sort tickets based on their priority color and then displays it
-function sortTicketsByColor(ticketColor) {
+function sortTicketsByColor(ticketColor, shouldDisplayAllTickets) {
 
     // Removing all displayed tickets
     // displayTicketsMainCont.innerHTML = "";   // This will simply remove everything from the main container
@@ -173,11 +178,19 @@ function sortTicketsByColor(ticketColor) {
     {
         allDisplayedTickets[i].remove();
     }
-
-    // Sorting tickets based on the given priority color
-    let sortedTickets = allTicketsArray.filter((tempTicket, idx) => {
-        return ticketColor === allTicketsArray[idx].ticketColor;
-    });
+    let sortedTickets;
+    // if shouldDisplayAllTickets is true that means have to display all the tickets 
+    // if shouldDisplayAllTickets is false then display only selected priority color ticket
+    if (!shouldDisplayAllTickets) {
+        // Sorting tickets based on the given priority color
+        sortedTickets = allTicketsArray.filter((tempTicket, idx) => {
+            return ticketColor === allTicketsArray[idx].ticketColor;
+        });
+    }
+    else{
+        // To display all the tickets when double click on any priority color
+        sortedTickets = allTicketsArray;
+    }
 
     // Creating and displaying sorted tickets
     sortedTickets.forEach((tempTicket, idx) => {
