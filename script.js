@@ -1,4 +1,5 @@
 let btnCreateTicket = document.querySelector(".ticket-action-create");
+let btnDeleteTicket = document.querySelector(".ticket-action-delete");
 
 let ticketModalCont = document.querySelector(".ticket-modal-cont");
 
@@ -21,7 +22,37 @@ let allTicketsArray = []; // This array will store all the tickets data that are
 
 btnCreateTicket.addEventListener("click", (e) => {
     isTicketModalOpen = !isTicketModalOpen;
+    if(isDeleteActive)
+    {
+        isDeleteActive = false; // Setting false as delete is inactive now
+        btnDeleteTicket.classList.remove("border"); 
+        btnCreateTicket.classList.add("border");
+    }
     ticketModalShowAndHideController(isTicketModalOpen);
+});
+
+let isDeleteActive = false;
+
+// Handling ticket delete functionality
+btnDeleteTicket.addEventListener("click",(e)=>{
+    isDeleteActive = !isDeleteActive;
+    if(isTicketModalOpen)
+    {
+        // Hiding ticket modal if open
+        isTicketModalOpen = false;
+        ticketModalShowAndHideController(false);
+    } 
+    if(isDeleteActive)
+    {
+        // Activating ticket deleted functionality
+        btnCreateTicket.classList.remove("border");
+        btnDeleteTicket.classList.add("border");
+    }
+    else
+    {
+        // Deactivating ticket deleted functionality
+        btnDeleteTicket.classList.remove("border");
+    }
 });
 
 // This will set border on current selected priority color and also set the currentSelectedPriorityColor with selected priority color value
