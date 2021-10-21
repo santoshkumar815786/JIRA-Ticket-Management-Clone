@@ -44,13 +44,14 @@ createTicketPriorityAll.forEach((ticketPirorityColor, idx) => {
 });
 
 // Handling ticket sorting based on ticket priority color
-ticketPriorityAll.forEach((tempTicketPriorityColor, idx)=>{
-    tempTicketPriorityColor.addEventListener("click",(e)=>{
-        ticketPriorityAll.forEach((xtempTicketPriorityColor, idx)=>{
+ticketPriorityAll.forEach((tempTicketPriorityColor, idx) => {
+    tempTicketPriorityColor.addEventListener("click", (e) => {
+        ticketPriorityAll.forEach((xtempTicketPriorityColor, idx) => {
             xtempTicketPriorityColor.classList.remove("border");    // Removing border class from the class list of all the ticket priority colors
         });
         tempTicketPriorityColor.classList.add("border");   // Adding border class in the class list of only ticket priority color i.e clicked
-        // console.log(`Clicked on color : ${tempTicketPriorityColor.classList[0]}`);
+        console.log(`Clicked on color : ${tempTicketPriorityColor.classList[0]}`);
+        sortTicketsByColor(tempTicketPriorityColor.classList[0]);
     });
 });
 
@@ -60,21 +61,27 @@ textareaTicketDescription.addEventListener("keydown", (e) => {
         if (textareaTicketDescription.value === "") {
             return
         }
-        let uniqueTicketId = "#" + shortid();
-        /*
-            shortid() will generate unique ticket id (shortid() is comming from the script )
-            "https://unpkg.com/shortid-dist@1.0.5/dist/shortid-2.2.13.min.js" (This script is inside index.html)
-        */
-        createNewTicket(currentSelectedPriorityColor, uniqueTicketId, textareaTicketDescription.value);
+
+        createNewTicket(currentSelectedPriorityColor, textareaTicketDescription.value);
     }
 });
 
 
-function createNewTicket(ticketColor, ticketId, ticketTaskDescription) {
+function createNewTicket(ticketColor, ticketTaskDescription, ticketId) {
+    let uniqueTicketId = "#" + shortid();
+    /*
+      shortid() will generate unique ticket id (shortid() is comming from the script )
+      "https://unpkg.com/shortid-dist@1.0.5/dist/shortid-2.2.13.min.js" (This script is inside index.html)
+  */
+
+    let id = ticketId || uniqueTicketId;    // if ticketId is undefined then uniqueTicketId will be assigned to the variable id
+                                            // if ticketId is not undefined i.e it has some value then ticketId will be assigned to the variable id
+
+
     let newTicket = document.createElement("div");
     newTicket.setAttribute("class", "display-ticket-cont");
     newTicket.innerHTML = `<div class="${ticketColor} display-ticket-color-cont"></div>
-    <div class="display-ticket-id-cont">${ticketId}</div>
+    <div class="display-ticket-id-cont">${id}</div>
     <div class="display-ticket-description-cont">
         ${ticketTaskDescription}
     </div>
@@ -83,14 +90,15 @@ function createNewTicket(ticketColor, ticketId, ticketTaskDescription) {
     </div>`;
     displayTicketsMainCont.appendChild(newTicket);
 
-    allTicketsArray.push({ticketColor, ticketId, ticketTaskDescription});   // Adding each newly created data inside allTicketsArray
+    if (!ticketId) {
+        allTicketsArray.push({ ticketColor, ticketId: id, ticketTaskDescription });   // Adding each newly created data inside allTicketsArray
+    }
 
     handleTicketLock(newTicket);    // Setting ticket lock functionaly for each newly created ticket
     handleDisplayedTicketColor(newTicket);
 
     isTicketModalOpen = false;  // Setting false as closing the create-ticket-modal
     ticketModalShowAndHideController(isTicketModalOpen);
-
 
 }
 
@@ -133,8 +141,8 @@ function handleDisplayedTicketColor(ticket) {
         if (indexOfColor < 4) {
             indexOfColor++;
         }
-        else{
-            indexOfColor=0;
+        else {
+            indexOfColor = 0;
         }
         // Replacing curret ticket color class with new ticket color class
         displayTicketColorCont.classList.replace(thisTicketColor, priorityColors[indexOfColor]);
@@ -152,4 +160,27 @@ function ticketModalShowAndHideController(shouldShow) {
         ticketModalCont.style.display = "none"; // Hiding create-ticket-modal
         btnCreateTicket.classList.remove("border"); // Removing border from the class list of .ticket-action-create
     }
+}
+
+// This function will sort tickets based on their priority color and then displays it
+function sortTicketsByColor(ticketColor) {
+
+    // Removing all displayed tickets
+    // displayTicketsMainCont.innerHTML = "";   // This will simply remove everything from the main container
+    //                      Or below code
+    let allDisplayedTickets = document.querySelectorAll(".display-ticket-cont");
+    for (let i = 0; i < allDisplayedTickets.length; i++)// Removing each ticket one by one from the main container
+    {
+        allDisplayedTickets[i].remove();
+    }
+
+    // Sorting tickets based on the given priority color
+    let sortedTickets = allTicketsArray.filter((tempTicket, idx) => {
+        return ticketColor === allTicketsArray[idx].ticketColor;
+    });
+
+    // Creating and displaying sorted tickets
+    sortedTickets.forEach((tempTicket, idx) => {
+        createNewTicket(tempTicket.ticketColor, tempTicket.ticketTaskDescription, tempTicket.ticketId);
+    });
 }
