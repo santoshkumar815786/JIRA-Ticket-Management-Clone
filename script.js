@@ -57,6 +57,11 @@ ticketPriorityAll.forEach((tempTicketPriorityColor, idx) => {
     // Displaying all tickets when double clicks on any priority color in the header area
     tempTicketPriorityColor.addEventListener("dblclick", (e) => {
         sortTicketsByColor(tempTicketPriorityColor.classList[0], true);
+        
+        // Adding .border class to all the ticket priority colors 
+        ticketPriorityAll.forEach((xTempTicketPriorityColor, idx) => {
+            xTempTicketPriorityColor.classList.add('border');   
+        });
     });
 });
 
