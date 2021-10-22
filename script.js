@@ -129,6 +129,7 @@ function createNewTicket(ticketColor, ticketTaskDescription, ticketId) {
     let ticketData = { ticketColor, ticketId: id, ticketTaskDescription }; 
     if (!ticketId) {
         allTicketsArray.push(ticketData);   // Adding each newly created data inside allTicketsArray
+        storeTicketsInLocalStorage();   // Storing allTicketsArray inside local storage
     }
 
     handleTicketLock(newTicket);    // Setting ticket lock functionaly for each newly created ticket
@@ -138,6 +139,13 @@ function createNewTicket(ticketColor, ticketTaskDescription, ticketId) {
     isTicketModalOpen = false;  // Setting false as closing the create-ticket-modal
     ticketModalShowAndHideController(isTicketModalOpen);
 
+}
+
+// This function will store all the tickets inside local storage 
+function storeTicketsInLocalStorage()
+{
+    // storing allTicketsArray inside local storage
+    localStorage.setItem("JIRA-Ticket-Management(Storage)",JSON.stringify(allTicketsArray));    
 }
 
 // This function will delete ticket from the display as well as from the allTicketArray
