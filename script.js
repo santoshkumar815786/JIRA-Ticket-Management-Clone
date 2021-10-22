@@ -132,8 +132,8 @@ function createNewTicket(ticketColor, ticketTaskDescription, ticketId) {
         storeTicketsInLocalStorage();   // Storing allTicketsArray inside local storage
     }
 
-    handleTicketLock(newTicket);    // Setting ticket lock functionaly for each newly created ticket
-    handleDisplayedTicketColor(newTicket);
+    handleTicketLock(newTicket,id);    // Setting ticket lock functionaly for each newly created ticket
+    handleDisplayedTicketColor(newTicket, id);
     handleTicketDelete(newTicket, ticketData);
 
     isTicketModalOpen = false;  // Setting false as closing the create-ticket-modal
@@ -146,6 +146,15 @@ function storeTicketsInLocalStorage()
 {
     // storing allTicketsArray inside local storage
     localStorage.setItem("JIRA-Ticket-Management(Storage)",JSON.stringify(allTicketsArray));    
+}
+
+// This function will return index of the ticket, for given ticket id
+function getIndexOfTicketFromArray(id)
+{
+    let index = allTicketsArray.findIndex((tempTicketObj)=>{
+        return tempTicketObj.ticketId === id;
+    });
+    return index;
 }
 
 // This function will delete ticket from the display as well as from the allTicketArray
@@ -188,7 +197,7 @@ function handleTicketLock(ticket) {
 }
 
 
-function handleDisplayedTicketColor(ticket) {
+function handleDisplayedTicketColor(ticket, id) {
     let displayTicketColorCont = ticket.querySelector(".display-ticket-color-cont");
     let thisTicketColor = displayTicketColorCont.classList[0];  // Getting color class attribute i.e at index 0
     let indexOfColor = priorityColors.indexOf(thisTicketColor); // Getting index of current selected priority color of the ticket displayed
@@ -204,8 +213,16 @@ function handleDisplayedTicketColor(ticket) {
         }
         // Replacing curret ticket color class with new ticket color class
         displayTicketColorCont.classList.replace(thisTicketColor, priorityColors[indexOfColor]);
+
+        // updating ticket color in the allTicketsArray for the given ticket id
+        let indexOfTicket = getIndexOfTicketFromArray(id); 
+        allTicketsArray[indexOfTicket].ticketColor = priorityColors[indexOfColor];
+        
     });
 }
+
+
+
 
 function ticketModalShowAndHideController(shouldShow) {
     // This function will simply controll the hiding and showing of .ticket-modal-cont based on the value of shouldShow
