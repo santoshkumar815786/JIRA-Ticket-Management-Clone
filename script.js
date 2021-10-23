@@ -20,6 +20,8 @@ let currentSelectedPriorityColor = priorityColors[0];   // This will store curre
 
 let allTicketsArray = []; // This array will store all the tickets data that are created
 
+
+
 btnCreateTicket.addEventListener("click", (e) => {
     isTicketModalOpen = !isTicketModalOpen;
     if (isDeleteActive) {
@@ -172,6 +174,7 @@ function handleTicketDelete(ticket, ticketData, id) {
             let indexOfTicket = getIndexOfTicketFromArray(id);
             let deletedTicket = allTicketsArray.splice(indexOfTicket,1); // deleting the ticket data from the array allTicketArray
             // console.log(`Deleted ticket : ${deletedTicket}`);
+            storeTicketsInLocalStorage();
         }
     });
 }
@@ -204,6 +207,7 @@ function handleTicketLock(ticket, id) {
         // updating ticket task decription in the allTicketsArray for the given ticket id
         let indexOfTicket = getIndexOfTicketFromArray(id);
         allTicketsArray[indexOfTicket].ticketTaskDescription = ticketTaskTextarea.innerHTML;    // Getting updated tast description and updating in the array
+        storeTicketsInLocalStorage();
     });
 }
 
@@ -228,7 +232,7 @@ function handleDisplayedTicketColor(ticket, id) {
         // updating ticket color in the allTicketsArray for the given ticket id
         let indexOfTicket = getIndexOfTicketFromArray(id);
         allTicketsArray[indexOfTicket].ticketColor = priorityColors[indexOfColor];
-
+        storeTicketsInLocalStorage();
     });
 }
 
