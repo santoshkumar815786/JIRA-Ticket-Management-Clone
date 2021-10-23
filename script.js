@@ -126,13 +126,13 @@ function createNewTicket(ticketColor, ticketTaskDescription, ticketId) {
     <i class="fas fa-lock"></i>
     </div>`;
     displayTicketsMainCont.appendChild(newTicket);
-    let ticketData = { ticketColor, ticketId: id, ticketTaskDescription }; 
+    let ticketData = { ticketColor, ticketId: id, ticketTaskDescription };
     if (!ticketId) {
         allTicketsArray.push(ticketData);   // Adding each newly created data inside allTicketsArray
         storeTicketsInLocalStorage();   // Storing allTicketsArray inside local storage
     }
 
-    handleTicketLock(newTicket,id);    // Setting ticket lock functionaly for each newly created ticket
+    handleTicketLock(newTicket, id);    // Setting ticket lock functionaly for each newly created ticket
     handleDisplayedTicketColor(newTicket, id);
     handleTicketDelete(newTicket, ticketData);
 
@@ -142,16 +142,14 @@ function createNewTicket(ticketColor, ticketTaskDescription, ticketId) {
 }
 
 // This function will store all the tickets inside local storage 
-function storeTicketsInLocalStorage()
-{
+function storeTicketsInLocalStorage() {
     // storing allTicketsArray inside local storage
-    localStorage.setItem("JIRA-Ticket-Management(Storage)",JSON.stringify(allTicketsArray));    
+    localStorage.setItem("JIRA-Ticket-Management(Storage)", JSON.stringify(allTicketsArray));
 }
 
 // This function will return index of the ticket, for given ticket id
-function getIndexOfTicketFromArray(id)
-{
-    let index = allTicketsArray.findIndex((tempTicketObj)=>{
+function getIndexOfTicketFromArray(id) {
+    let index = allTicketsArray.findIndex((tempTicketObj) => {
         return tempTicketObj.ticketId === id;
     });
     return index;
@@ -170,7 +168,7 @@ function handleTicketDelete(ticket, ticketData) {
     });
 }
 
-function handleTicketLock(ticket) {
+function handleTicketLock(ticket, id) {
     // This function will add the lock functionality on each newly created ticket
     let displayTicketLockCont = ticket.querySelector(".display-ticket-lock-cont");
     let ticketLock = displayTicketLockCont.children[0]; // Getting first children as it only has one children i.e lock
@@ -181,7 +179,7 @@ function handleTicketLock(ticket) {
 
     // adding click event listener on the lock
     ticketLock.addEventListener("click", (e) => {
-
+        console.log(`ticket id : ${id}`);
         // Checking if lockIcon class is in the class list of ticket lock or not
         if (ticketLock.classList.contains(lockIcon)) {
             ticketLock.classList.remove(lockIcon);
@@ -193,6 +191,11 @@ function handleTicketLock(ticket) {
             ticketLock.classList.add(lockIcon);
             ticketTaskTextarea.setAttribute("contenteditable", "false"); // Making the ticket task decription area uneditable
         }
+
+        // console.log(`task description : ${ticketTaskTextarea.innerHTML}`);
+        // updating ticket task decription in the allTicketsArray for the given ticket id
+        let indexOfTicket = getIndexOfTicketFromArray(id);
+        allTicketsArray[indexOfTicket].ticketTaskDescription = ticketTaskTextarea.innerHTML;    // Getting updated tast description and updating in the array
     });
 }
 
@@ -215,9 +218,9 @@ function handleDisplayedTicketColor(ticket, id) {
         displayTicketColorCont.classList.replace(thisTicketColor, priorityColors[indexOfColor]);
 
         // updating ticket color in the allTicketsArray for the given ticket id
-        let indexOfTicket = getIndexOfTicketFromArray(id); 
+        let indexOfTicket = getIndexOfTicketFromArray(id);
         allTicketsArray[indexOfTicket].ticketColor = priorityColors[indexOfColor];
-        
+
     });
 }
 
