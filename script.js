@@ -20,6 +20,19 @@ let currentSelectedPriorityColor = priorityColors[0];   // This will store curre
 
 let allTicketsArray = []; // This array will store all the tickets data that are created
 
+loadAndSetAllTicketsFromLocalStorage();
+
+// This function will load all the tickets from the local storage and displays it in the main-cont
+function loadAndSetAllTicketsFromLocalStorage(){
+    if(getStoredTicketsFromLocalStorage())
+    {
+        // Tickets are stored in the local storage
+        allTicketsArray = getStoredTicketsFromLocalStorage();
+        allTicketsArray.forEach((tempTicket)=>{
+            createNewTicket(tempTicket.ticketColor, tempTicket.ticketTaskDescription, tempTicket.ticketId);
+        });
+    }
+}
 
 
 btnCreateTicket.addEventListener("click", (e) => {
