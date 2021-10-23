@@ -147,6 +147,12 @@ function storeTicketsInLocalStorage() {
     localStorage.setItem("JIRA-Ticket-Management(Storage)", JSON.stringify(allTicketsArray));
 }
 
+// This function will return all the stored tickets from the local storage by parsing it
+function getStoredTicketsFromLocalStorage(){
+    // Returning all the stored tickets from the local storage 
+    return JSON.parse(localStorage.getItem("JIRA-Ticket-Management(Storage)"));
+}
+
 // This function will return index of the ticket, for given ticket id
 function getIndexOfTicketFromArray(id) {
     let index = allTicketsArray.findIndex((tempTicketObj) => {
