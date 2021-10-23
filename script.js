@@ -134,7 +134,7 @@ function createNewTicket(ticketColor, ticketTaskDescription, ticketId) {
 
     handleTicketLock(newTicket, id);    // Setting ticket lock functionaly for each newly created ticket
     handleDisplayedTicketColor(newTicket, id);
-    handleTicketDelete(newTicket, ticketData);
+    handleTicketDelete(newTicket, ticketData, id);
 
     isTicketModalOpen = false;  // Setting false as closing the create-ticket-modal
     ticketModalShowAndHideController(isTicketModalOpen);
@@ -156,14 +156,16 @@ function getIndexOfTicketFromArray(id) {
 }
 
 // This function will delete ticket from the display as well as from the allTicketArray
-function handleTicketDelete(ticket, ticketData) {
+function handleTicketDelete(ticket, ticketData, id) {
 
     // Setting click listener on ticket
     ticket.addEventListener("click", (e) => {
         if (isDeleteActive) {
             // Deleting tickets only if delete button is active, other wise not deleting
             ticket.remove();    // removing the ticket div class from the main container
-            allTicketsArray.splice(allTicketsArray.indexOf(ticketData));    // deleting the ticket data from the array allTicketArray
+            let indexOfTicket = getIndexOfTicketFromArray(id);
+            let deletedTicket = allTicketsArray.splice(indexOfTicket,1); // deleting the ticket data from the array allTicketArray
+            // console.log(`Deleted ticket : ${deletedTicket}`);
         }
     });
 }
@@ -179,7 +181,7 @@ function handleTicketLock(ticket, id) {
 
     // adding click event listener on the lock
     ticketLock.addEventListener("click", (e) => {
-        console.log(`ticket id : ${id}`);
+        // console.log(`ticket id : ${id}`);
         // Checking if lockIcon class is in the class list of ticket lock or not
         if (ticketLock.classList.contains(lockIcon)) {
             ticketLock.classList.remove(lockIcon);
