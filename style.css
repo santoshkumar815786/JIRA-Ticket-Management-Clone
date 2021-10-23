@@ -124,8 +124,7 @@
 
 .main-cont{
     padding: 1.5rem;
-    height: 100vh;
-    background-color: #dee2de;
+    height: max-content;
     display: flex;
     gap: 2rem;
     flex-wrap: wrap;
