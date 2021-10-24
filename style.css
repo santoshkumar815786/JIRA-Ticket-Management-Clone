@@ -171,6 +171,39 @@
 
 }
 
+.msg-box-cont{
+    width: max-content;
+    height: max-content;
+    display: flex;
+    flex-direction: column-reverse;
+    position: fixed;
+    bottom: calc(1.5rem);
+    left: calc(1.5rem);
+    flex-wrap: wrap-;
+}
+.msg-box{
+    width: max-content;
+    height: 2rem;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-weight: bold;
+    color: white;
+    border-radius: 0.2rem;
+    margin-top: 0.5rem;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.color-ticket-created{
+    background-color: rgb(20, 151, 20);
+}
+
+.color-ticket-deleted{
+    background-color: rgb(151, 28, 49);
+}
+
 .border{
     border: 0.25rem solid white;
 }
