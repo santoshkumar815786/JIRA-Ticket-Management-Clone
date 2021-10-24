@@ -325,4 +325,9 @@ function showMessageInMessageBox(xTicketId, msgType) {
     }
     msgBox.innerHTML = msg;
     msgBoxCont.appendChild(msgBox); // appending new msg-box in msg-box-cont
+
+    // Removing msgBox after 5sec
+    setTimeout(() => {
+        msgBoxCont.removeChild(msgBox); 
+    }, 5000);
 }
