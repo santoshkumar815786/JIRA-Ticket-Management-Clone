@@ -194,6 +194,7 @@ function handleTicketDelete(ticket, ticketData, id) {
             let deletedTicket = allTicketsArray.splice(indexOfTicket, 1); // deleting the ticket data from the array allTicketArray
             // console.log(`Deleted ticket : ${deletedTicket}`);
             storeTicketsInLocalStorage();
+            showMessageInMessageBox(id, "deleted"); // showing msg-box for ticket deletion
         }
     });
 }
