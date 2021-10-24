@@ -154,6 +154,12 @@ function createNewTicket(ticketColor, ticketTaskDescription, ticketId) {
 
     isTicketModalOpen = false;  // Setting false as closing the create-ticket-modal
     ticketModalShowAndHideController(isTicketModalOpen);
+
+    // Displaying msg box only if ticket is created newly
+    if(!ticketId)
+    {
+        showMessageInMessageBox(id, "created"); // showing msg-box for ticket creation
+    }
 }
 
 // This function will store all the tickets inside local storage 
