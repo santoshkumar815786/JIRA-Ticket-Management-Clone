@@ -11,6 +11,8 @@ let createTicketPriorityAll = document.querySelectorAll(".create-ticket-priority
 
 let ticketPriorityAll = document.querySelectorAll(".ticket-priority");
 
+let msgBoxCont = document.querySelector(".msg-box-cont");
+
 let ticketLockCont = "";
 
 let isTicketModalOpen = false;
@@ -23,12 +25,11 @@ let allTicketsArray = []; // This array will store all the tickets data that are
 loadAndSetAllTicketsFromLocalStorage();
 
 // This function will load all the tickets from the local storage and displays it in the main-cont
-function loadAndSetAllTicketsFromLocalStorage(){
-    if(getStoredTicketsFromLocalStorage())
-    {
+function loadAndSetAllTicketsFromLocalStorage() {
+    if (getStoredTicketsFromLocalStorage()) {
         // Tickets are stored in the local storage
         allTicketsArray = getStoredTicketsFromLocalStorage();
-        allTicketsArray.forEach((tempTicket)=>{
+        allTicketsArray.forEach((tempTicket) => {
             createNewTicket(tempTicket.ticketColor, tempTicket.ticketTaskDescription, tempTicket.ticketId);
         });
     }
@@ -153,7 +154,6 @@ function createNewTicket(ticketColor, ticketTaskDescription, ticketId) {
 
     isTicketModalOpen = false;  // Setting false as closing the create-ticket-modal
     ticketModalShowAndHideController(isTicketModalOpen);
-
 }
 
 // This function will store all the tickets inside local storage 
@@ -163,7 +163,7 @@ function storeTicketsInLocalStorage() {
 }
 
 // This function will return all the stored tickets from the local storage by parsing it
-function getStoredTicketsFromLocalStorage(){
+function getStoredTicketsFromLocalStorage() {
     // Returning all the stored tickets from the local storage 
     return JSON.parse(localStorage.getItem("JIRA-Ticket-Management(Storage)"));
 }
@@ -185,7 +185,7 @@ function handleTicketDelete(ticket, ticketData, id) {
             // Deleting tickets only if delete button is active, other wise not deleting
             ticket.remove();    // removing the ticket div class from the main container
             let indexOfTicket = getIndexOfTicketFromArray(id);
-            let deletedTicket = allTicketsArray.splice(indexOfTicket,1); // deleting the ticket data from the array allTicketArray
+            let deletedTicket = allTicketsArray.splice(indexOfTicket, 1); // deleting the ticket data from the array allTicketArray
             // console.log(`Deleted ticket : ${deletedTicket}`);
             storeTicketsInLocalStorage();
         }
@@ -294,4 +294,28 @@ function sortTicketsByColor(ticketColor, shouldDisplayAllTickets) {
     sortedTickets.forEach((tempTicket, idx) => {
         createNewTicket(tempTicket.ticketColor, tempTicket.ticketTaskDescription, tempTicket.ticketId);
     });
+}
+
+
+function showMessageInMessageBox(xTicketId, msgType) {
+    // Ticket with id #aDkldDFlE deleted 
+    // Ticket with id #aDkldDFlE created
+    let msg = "";
+
+    // Creating new msg box
+    let msgBox = document.createElement("div");
+    msgBox.setAttribute("class", "msg-box");
+    
+    if (msgType === "created") {
+        // Showing message for ticket creation
+        msg = `Ticket with id ${xTicketId} created`;
+        msgBox.classList.add("color-ticket-created")
+    }
+    else {
+        // Showing message for ticket deletion
+        msg = `Ticket with id ${xTicketId} deleted`;
+        msgBox.classList.add("color-ticket-deleted")
+    }
+    msgBox.innerHTML = msg;
+    msgBoxCont.appendChild(msgBox); // appending new msg-box in msg-box-cont
 }
